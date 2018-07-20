@@ -7,5 +7,6 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  data$: Observable<boolean> = of(false);
+  readonly maxElements = 3;
+  readonly data$: Observable<boolean> = of(false);
 }

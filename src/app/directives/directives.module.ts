@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LetDirective } from './let.directive';
+import { RangeDirective } from './range.directive';
 
 @NgModule({
   imports: [
@@ -8,9 +9,11 @@ import { LetDirective } from './let.directive';
   ],
   declarations: [
     LetDirective,
+    RangeDirective,
   ],
   exports: [
     LetDirective,
+    RangeDirective,
   ],
 })
 export class DirectivesModule {}

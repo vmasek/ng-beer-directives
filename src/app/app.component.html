@@ -5,3 +5,19 @@
     Data: {{data}} <!-- false -->
   </div>
 </ng-container>
+
+<h1>Range directive example:</h1>
+
+<div *appRange="maxElements; let num">
+  element {{num + 1}} of {{maxElements}}
+</div>
+<br>
+
+<label>
+  Year:
+  <select>
+    <ng-container *appRange="[2005, 2018]; let num">
+      <option [value]="num">{{num}}</option>
+    </ng-container>
+  </select>
+</label>
