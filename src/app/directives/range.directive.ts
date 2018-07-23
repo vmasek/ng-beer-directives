@@ -1,9 +1,10 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
+interface RangeContext {
+  $implicit: number;
+  index: number;
+}
 
-/**
- * https://netbasal.com/the-power-of-structural-directives-in-angular-bfe4d8c44fb1
- */
 @Directive({
   selector: '[appRange]'
 })
@@ -16,14 +17,15 @@ export class RangeDirective {
     const range = this.generateRange(from, to);
 
     range.forEach(
-      itemNumber => this.viewRef.createEmbeddedView(this.templateRef, {
-        $implicit: itemNumber
+      (itemNumber, index) => this.viewRef.createEmbeddedView(this.templateRef, {
+        $implicit: itemNumber,
+        index
       })
     );
   }
 
   constructor(private viewRef: ViewContainerRef,
-              private templateRef: TemplateRef<any>) {
+              private templateRef: TemplateRef<RangeContext>) {
   }
 
   private generateRange(from: number, to: number): number[] {

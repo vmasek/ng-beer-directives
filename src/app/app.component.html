@@ -6,10 +6,29 @@
   </div>
 </ng-container>
 
+<div *appLet="random1or0$ | async as random1or0">
+  Random number 0 or 1 is => {{random1or0}}
+</div>
+
+
+
+<br>
+<div *appRange="8; let num">
+  {{num}}. random is {{random1or0$ | async}}
+</div>
+
+
+
+
+
+
+
+
+
 <h1>Range directive example:</h1>
 
-<div *appRange="maxElements; let num">
-  element {{num + 1}} of {{maxElements}}
+<div *appRange="maxElements; let num; let i = index">
+  index: {{i}} | element: {{num + 1}} of {{maxElements}}
 </div>
 <br>
 
