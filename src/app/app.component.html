@@ -1,31 +1,28 @@
 <h1>Let directive example:</h1>
 
-<ng-container *appLet="data$ | async as data"> <!-- single subscription -->
+<ng-container *appLet="data$ | async as data;"> <!-- single subscription -->
   <div>
     Data: {{data}} <!-- false -->
   </div>
 </ng-container>
+<ng-container *appLet="data$ | async; let data2"> <!-- single subscription -->
+  <div>
+    Data2: {{data2}} <!-- same value as Data (false) -->
+  </div>
+</ng-container>
+<br>
 
 <div *appLet="random1or0$ | async as random1or0">
   Random number 0 or 1 is => {{random1or0}}
 </div>
-
-
-
 <br>
+
+<h1>Range directive example:</h1>
+
 <div *appRange="8; let num">
   {{num}}. random is {{random1or0$ | async}}
 </div>
-
-
-
-
-
-
-
-
-
-<h1>Range directive example:</h1>
+<br><br>
 
 <div *appRange="maxElements; let num; let i = index">
   index: {{i}} | element: {{num + 1}} of {{maxElements}}

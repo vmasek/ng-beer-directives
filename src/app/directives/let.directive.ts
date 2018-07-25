@@ -1,6 +1,32 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
+/**
+ * This interface represents context of the directive.
+ *
+ * It defines two properties ($implicit and appLet) which enables same behavior with different syntax.
+ * It is not required to have both, it is just a way to provide support for both syntax.
+ */
 interface LetContext<T> {
+  /**
+   * Current item exposed in implicit value variable.
+   * This enables us to use the let syntax
+   *
+   * @example
+   * <ng-container *appLet="data$ | async; let data">
+   *   Data: {{data}}
+   * </ng-container>
+   */
+  $implicit: T;  // current item exposed as implicit value
+
+  /**
+   * Current item exposed as key matching the directive name.
+   * This adds support for `as` syntax in template.
+   *
+   * @example
+   * <ng-container *appLet="data$ | async as data">
+   *   Data: {{data}}
+   * </ng-container>
+   */
   appLet: T;
 }
 
@@ -8,15 +34,13 @@ interface LetContext<T> {
   selector: '[appLet]'
 })
 export class LetDirective<T> {
-  private context: LetContext<T> = {appLet: null};
 
-  constructor(viewRef: ViewContainerRef,
-              templateRef: TemplateRef<LetContext<T>>) {
-    viewRef.createEmbeddedView(templateRef, this.context);
+  constructor(private readonly viewRef: ViewContainerRef,
+              private readonly templateRef: TemplateRef<LetContext<T>>) {
   }
 
   @Input()
   set appLet(value: T) {
-    this.context.appLet = value;
+    this.viewRef.createEmbeddedView(this.templateRef, {$implicit: value, appLet: value});
   }
 }
